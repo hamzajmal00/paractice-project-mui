@@ -1,24 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import { Box, ThemeProvider } from '@mui/material';
+import { Container } from '@mui/system';
+import theme from './styles/theme';
+import { AppBaar } from './components/appbar';
+import { Banar } from './components/banar';
+import { Promotion } from './components/promotion';
+import { Drawar } from './components/appDrawar/Drawar';
+import { UIProvider } from './context';
+import { Product } from './components/product';
+import { createContext, useState } from 'react';
+export const UIContext = createContext();
 
 function App() {
+  const [drawrOpen, setdrawrOpen] = useState(false);
+  const value = {
+    drawrOpen,
+    setdrawrOpen
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+
+      <Container >
+        <UIContext.Provider value={value}>
+          <AppBaar />
+          <Drawar />
+
+
+          <Banar />
+          <Promotion />
+          <Product />
+        </UIContext.Provider>
+      </Container>
+
+    </ThemeProvider>
+
   );
 }
 
